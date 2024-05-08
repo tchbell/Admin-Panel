@@ -1,0 +1,11 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  height: 100vh;
+  gap: 1rem;
+  /* full height of the viewport */
+}
+
+.router {
+  height: 100%;
+}

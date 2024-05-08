@@ -37,8 +37,8 @@ export class CardComponent {
   data: any = airportData;
 
   userForm = new FormGroup({
-    userLocation: new FormControl(''),
-    userDesiredLocation: new FormControl(''),
+    userLocation: new FormControl(<AirportDataInterFace>{}),
+    userDesiredLocation: new FormControl(<AirportDataInterFace>{}),
   });
 
   constructor(private http: HttpClient) { }
@@ -48,18 +48,19 @@ export class CardComponent {
       this.options = data;
     });
 
-    this.filteredOptions = this.userForm.get('userLocation')?.valueChanges.pipe(
-      filter(value => !!value),
-      startWith(''),
-      map(value => this._filter(value || ''))
-    );
+    // this.filteredOptions = this.userForm.get('userLocation')?.valueChanges.pipe(
+    //   filter(value => !!value),
+    //   startWith(''),
+    //   map(value => this._filter(value || ''))
+    // );
 
-    this.filteredOptionsDuplicate = this.userForm.get('userDesiredLocation')?.valueChanges.pipe(
-      filter(value => !!value),
-      startWith(''),
-      map(value => this._filter(value || ''))
-    );
-
+    // this.filteredOptionsDuplicate = this.userForm.get('userDesiredLocation')?.valueChanges.pipe(
+    //   filter(value => !!value),
+    //   startWith(''),
+    //   map(value => this._filter(value || ''))
+    // );
+    this.filteredOptions = this.createFilteredOptionsObservable(this.userForm.get('userLocation') as FormControl);
+    this.filteredOptionsDuplicate = this.createFilteredOptionsObservable(this.userForm.get('userDesiredLocation') as FormControl);
   }
 
   public displayFn(airport?: AirportDataInterFace): string {
@@ -92,6 +93,14 @@ export class CardComponent {
 
   private isAirportDataInterFace(value: any): value is AirportDataInterFace {
     return value && typeof value === 'object' && 'name' in value;
+  }
+
+  private createFilteredOptionsObservable(control: FormControl): Observable<any> {
+    return control.valueChanges.pipe(
+      filter(value => !!value),
+      startWith(''),
+      map(value => this._filter(value || ''))
+    );
   }
 
   public onFormSubmit() {
