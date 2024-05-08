@@ -1,0 +1,40 @@
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #f2f2f2;
+}
+
+.logo {
+  width: 100px;
+  height: 50px;
+}
+
+.hamburger {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.hamburger-icon {
+  width: 20px;
+  height: 20px;
+  background-color: #333;
+  margin-right: 5px;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+}
+
+.link {
+  margin-right: 10px;
+  color: #333;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}

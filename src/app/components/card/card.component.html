@@ -1,0 +1,47 @@
+<div class="card">
+  <h2>User Data</h2>
+
+  <form class="example-form" [formGroup]="userForm" (ngSubmit)="onFormSubmit()">
+    <mat-form-field class="example-full-width">
+      <mat-label>Current Location</mat-label>
+      <input
+        type="text"
+        placeholder="Choose an Airport"
+        matInput
+        formControlName="userLocation"
+        [matAutocomplete]="auto1"
+      />
+      <mat-autocomplete
+        autoActiveFirstOption
+        #auto1="matAutocomplete"
+        [displayWith]="displayFn"
+      >
+        @for (option of filteredOptions | async; track option.code) {
+        <mat-option [value]="option">{{ option.name }}</mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Desired Location</mat-label>
+      <input
+        type="text"
+        placeholder="Choose an Airport"
+        matInput
+        formControlName="userDesiredLocation"
+        [matAutocomplete]="auto2"
+      />
+      <mat-autocomplete
+        autoActiveFirstOption
+        #auto2="matAutocomplete"
+        [displayWith]="displayFn"
+      >
+        @for (option of filteredOptionsDuplicate | async; track option.code) {
+        <mat-option [value]="option">{{ option.name }}</mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <button mat-flat-button color="primary" type="submit">Submit</button>
+  </form>
+</div>
